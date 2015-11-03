@@ -20,6 +20,15 @@ public class Sokoban extends Applet implements KeyListener {
 	Image bufor;
 	Graphics bg; //rysuje obrazek
 	static int stan = 1; //czy zakonczona gra-> 1 siê toczy i rysuj plansze.
+	
+	Image box;
+	Image floor;
+	Image hero;
+	Image wall;
+	Image exit;
+	Image placedBox;
+	
+	
 	public void init()
 	{
 
@@ -30,6 +39,13 @@ public class Sokoban extends Applet implements KeyListener {
 	bufor = createImage(rozmiar1, rozmiar2);
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
+	
+	box = getImage(getDocumentBase(),"Images/Chest.jpg");
+	placedBox = getImage(getDocumentBase(),"Images/chestPlaced.jpg");
+	hero = getImage(getDocumentBase(),"Images/player.jpg");
+	wall = getImage(getDocumentBase(),"Images/Wall.jpg");
+    exit = getImage(getDocumentBase(),"Images/point.jpg");
+    floor = getImage(getDocumentBase(),"Images/floor.jpg");
 	
       task.makeBoard();
 	}
@@ -72,9 +88,13 @@ public class Sokoban extends Applet implements KeyListener {
 				}
 				switch(task.board[i][j])
 				{
+					case 0:
+						g.drawImage(floor, 40*j, 40*i, this); //w tym aplecie this
+						break;
 					case 1:
-						g.setColor(Color.RED);
-						g.fillRect(40*j, 40*i, 40, 40);
+						g.drawImage(wall, 40*j, 40*i, this);
+//						g.setColor(Color.RED);
+//						g.fillRect(40*j, 40*i, 40, 40);
 						break;
 //					case 2:
 //						g.setColor(Color.BLUE);
