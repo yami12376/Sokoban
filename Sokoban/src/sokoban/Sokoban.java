@@ -50,16 +50,22 @@ public class Sokoban extends Applet implements KeyListener {
 		{
 			for (int j=0; j<task.board[0].length;j++)
 			{
+				if(task.exits[i][j]==2)
+				{
+					g.setColor(Color.BLUE);
+					g.fillRect(40*j, 40*i, 40, 40);
+					//break;
+				}
 				switch(task.board[i][j])
 				{
 					case 1:
 						g.setColor(Color.RED);
 						g.fillRect(40*j, 40*i, 40, 40);
 						break;
-					case 2:
-						g.setColor(Color.BLUE);
-						g.fillRect(40*j, 40*i, 40, 40);
-						break;
+//					case 2:
+//						g.setColor(Color.BLUE);
+//						g.fillRect(40*j, 40*i, 40, 40);
+//						break;
 					case 3:
 						g.setColor(Color.GREEN);
 						g.fillOval(40*j, 40*i, 40, 40);

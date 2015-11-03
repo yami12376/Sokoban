@@ -5,6 +5,7 @@ import java.util.TimerTask;
 public class TaskLvl extends TimerTask 
 {
 	int board[][] = new int[10][14];
+	int exits[][] = new int[10][14]; //tak zeby luzno po wyjsciach chodzic
 	int poz_HeroY = 4;
 	int poz_HeroX = 7;
 	public void run() 
@@ -32,6 +33,26 @@ public class TaskLvl extends TimerTask
 				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
 		};
 		board = lvl2;  //board.clone(lvl2); albo forem
+		
+//		for (int i=0; i<board.length; i++)
+//		{
+//			for (int j=0; j<board[0].length; j++)
+//			{
+//				board[i][j]= lvl2[i][j];
+//			}
+//		}
+		
+		for (int i=0; i<board.length; i++)
+		{
+			for (int j=0; j<board[0].length; j++)
+			{
+				if (board[i][j]==2)
+				{
+						board[i][j] = 0;
+						exits[i][j] = 2;
+				}
+			}
+		}
 	}
 	public void move(char where)
 	{
