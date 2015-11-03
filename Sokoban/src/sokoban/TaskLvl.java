@@ -5,6 +5,8 @@ import java.util.TimerTask;
 public class TaskLvl extends TimerTask 
 {
 	int board[][] = new int[10][14];
+	int poz_HeroY = 4;
+	int poz_HeroX = 7;
 	public void run() 
 	{
 		Sokoban.applet.repaint();	
@@ -30,7 +32,28 @@ public class TaskLvl extends TimerTask
 				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
 		};
 		board = lvl2;  //board.clone(lvl2); albo forem
-		
 	}
-
+	public void move(char where)
+	{
+		switch(where)
+		{
+			case 'l':
+				if(board[poz_HeroY][poz_HeroX-1]==0)
+				{ 
+					board[poz_HeroY][poz_HeroX-1]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroX--;
+				}
+				break;
+			case 'p':
+				break;
+			case 'g':
+				break;
+			case 'd':
+				break;
+		
+  		}
+	}
+	
+	
 }

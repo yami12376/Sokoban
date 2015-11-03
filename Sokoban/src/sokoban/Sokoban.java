@@ -5,9 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Timer;
 
-public class Sokoban extends Applet {
+import com.sun.jmx.snmp.tasks.Task;
+
+public class Sokoban extends Applet implements KeyListener {
 	int rozmiar1 = 14*40;
 	int rozmiar2 = 10*40;
 	static 	Applet  applet;
@@ -17,7 +21,9 @@ public class Sokoban extends Applet {
 	Graphics bg; //rysuje obrazek
 	public void init()
 	{
+
 		applet = this;
+		applet.addKeyListener(this);
 	applet.setSize(rozmiar1, rozmiar2);	
 	applet.setBackground((Color.LIGHT_GRAY));
 	bufor = createImage(rozmiar1, rozmiar2);
@@ -65,6 +71,42 @@ public class Sokoban extends Applet {
 				}
 			}
 		}
+	}
+
+	public void keyPressed(KeyEvent arg0) 
+	{
+
+		switch(arg0.getKeyCode())
+		{
+		//arg0.getKeyCode()  37 <-       38 góra  -> 39  dó³ 40 
+			case 37:
+				task.move('l');
+				break;
+			case 38:
+				task.move('g');
+				break;
+			case 39:
+				task.move('p');
+				break;
+			case 40:
+				task.move('d');
+				break;
+//			case default :
+//				break;
+		
+		}
+	}
+
+	public void keyReleased(KeyEvent arg0)
+	{
+
+		
+	}
+
+	public void keyTyped(KeyEvent arg0) 
+	{
+	
+		
 	}
 		
 	}
