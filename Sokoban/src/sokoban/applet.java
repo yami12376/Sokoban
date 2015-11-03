@@ -20,7 +20,7 @@ import java.awt.Graphics;
 
 
 
-public class Sokoban  extends Applet{
+public class applet  extends Applet{
 	Applet applet = this;
 	public void init()
 	{
