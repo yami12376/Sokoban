@@ -8,8 +8,8 @@ import java.awt.Image;
 import java.util.Timer;
 
 public class Sokoban extends Applet {
-	int rozmiar1 = 800;
-	int rozmiar2 = 600;
+	int rozmiar1 = 14*40;
+	int rozmiar2 = 10*40;
 	static 	Applet  applet;
 	TaskLvl task = new TaskLvl();
 	Timer timer = new Timer();
@@ -49,6 +49,19 @@ public class Sokoban extends Applet {
 					case 1:
 						g.setColor(Color.RED);
 						g.fillRect(40*j, 40*i, 40, 40);
+						break;
+					case 2:
+						g.setColor(Color.BLUE);
+						g.fillRect(40*j, 40*i, 40, 40);
+						break;
+					case 3:
+						g.setColor(Color.GREEN);
+						g.fillOval(40*j, 40*i, 40, 40);
+						break;
+					case 4:
+						g.setColor(Color.YELLOW);
+						g.fillOval(40*j, 40*i, 40, 40);
+						break;
 				}
 			}
 		}
