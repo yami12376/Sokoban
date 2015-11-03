@@ -24,7 +24,7 @@ public class TaskLvl extends TimerTask
 				{1,2,2,0,0,1,0,0,0,0,0,1,1,1},
 				{1,2,2,0,0,1,0,3,0,0,3,0,0,1},
 				{1,2,2,0,0,1,3,1,1,1,1,0,0,1},
-				{1,2,2,0,0,0,0,4,0,1,1,0,0,1},
+				{1,2,2,0,0,3,0,4,0,1,1,0,0,1},
 				{1,2,2,0,0,1,0,1,0,0,3,0,1,1},
 				{1,1,1,1,1,1,0,1,1,3,0,3,0,1},
 				{0,0,1,0,3,0,0,3,0,3,0,3,0,1},
@@ -38,18 +38,64 @@ public class TaskLvl extends TimerTask
 		switch(where)
 		{
 			case 'l':
-				if(board[poz_HeroY][poz_HeroX-1]==0)
+				if (board[poz_HeroY][poz_HeroX-1]==0)
 				{ 
+					board[poz_HeroY][poz_HeroX-1]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroX--;
+				}
+				else if ((board[poz_HeroY][poz_HeroX-1]==3)&&(board[poz_HeroY][poz_HeroX-2]==0))
+				{
+					board[poz_HeroY][poz_HeroX-2]=3;
 					board[poz_HeroY][poz_HeroX-1]=4;
 					board[poz_HeroY][poz_HeroX]=0;
 					poz_HeroX--;
 				}
 				break;
 			case 'p':
+				if (board[poz_HeroY][poz_HeroX+1]==0)
+				{ 
+					board[poz_HeroY][poz_HeroX+1]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroX++;
+				}
+				else if ((board[poz_HeroY][poz_HeroX+1]==3)&&(board[poz_HeroY][poz_HeroX+2]==0))
+				{
+					board[poz_HeroY][poz_HeroX+2]=3;
+					board[poz_HeroY][poz_HeroX+1]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroX++;
+				}
 				break;
 			case 'g':
+				if (board[poz_HeroY-1][poz_HeroX]==0)
+				{ 
+					board[poz_HeroY-1][poz_HeroX]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroY--;
+				}
+				else if ((board[poz_HeroY-1][poz_HeroX]==3)&&(board[poz_HeroY-2][poz_HeroX]==0))
+				{
+					board[poz_HeroY-2][poz_HeroX]=3;
+					board[poz_HeroY-1][poz_HeroX]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroY--;
+				}
 				break;
 			case 'd':
+				if (board[poz_HeroY+1][poz_HeroX]==0)
+				{ 
+					board[poz_HeroY+1][poz_HeroX]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroY++;
+				}
+				else if ((board[poz_HeroY+1][poz_HeroX]==3)&&(board[poz_HeroY+2][poz_HeroX]==0))
+				{
+					board[poz_HeroY+2][poz_HeroX]=3;
+					board[poz_HeroY+1][poz_HeroX]=4;
+					board[poz_HeroY][poz_HeroX]=0;
+					poz_HeroY++;
+				}
 				break;
 		
   		}
