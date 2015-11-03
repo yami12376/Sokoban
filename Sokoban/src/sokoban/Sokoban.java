@@ -19,6 +19,7 @@ public class Sokoban extends Applet implements KeyListener {
 	Timer timer = new Timer();
 	Image bufor;
 	Graphics bg; //rysuje obrazek
+	static int stan = 1; //czy zakonczona gra-> 1 siê toczy i rysuj plansze.
 	public void init()
 	{
 
@@ -42,7 +43,20 @@ public class Sokoban extends Applet implements KeyListener {
 	
 	public void paint(Graphics g)//jak nie by³o update-repaint trafiamy tu.
 	{
-       drawLevel(g);
+		switch(stan)
+		{
+			case 1:
+				drawLevel(g);
+				break;
+			case 2:
+				endScreen(g);
+				break;
+		}
+     
+	}
+	public void endScreen(Graphics g) //wyœwietla komunikat/grafike jak przeœlismy grê
+	{
+		
 	}
 	public void drawLevel(Graphics g)
 	{

@@ -8,9 +8,30 @@ public class TaskLvl extends TimerTask
 	int exits[][] = new int[10][14]; //tak zeby luzno po wyjsciach chodzic
 	int poz_HeroY = 4;
 	int poz_HeroX = 7;
+	//boolean endGame = false; //czy potrzebne?
 	public void run() 
 	{
+		if(endGame()==true) //sprawdza czy konie gry nast¹pi³
+		{
+			
+			Sokoban.stan =  2;
+		}
 		Sokoban.applet.repaint();	
+	}
+	public boolean endGame()
+	{
+		for (int i=0; i<board.length; i++)
+		{
+			for (int j=0; j<board[0].length; j++)
+			{
+				if ((exits[i][j]==2) &&(board[i][j]!=3))//znajduje sie wyjscie i skrzynka
+				{
+						return false;
+				}
+				
+			}
+		}
+		return true;
 	}
 	public void makeBoard()
 	{ 
@@ -22,15 +43,27 @@ public class TaskLvl extends TimerTask
 		
 		int lvl2[][] = {
 				{1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-				{1,2,2,0,0,1,0,0,0,0,0,1,1,1},
-				{1,2,2,0,0,1,0,3,0,0,3,0,0,1},
-				{1,2,2,0,0,1,3,1,1,1,1,0,0,1},
-				{1,2,2,0,0,3,0,4,0,1,1,0,0,1},
-				{1,2,2,0,0,1,0,1,0,0,3,0,1,1},
+				{1,0,0,0,0,1,0,0,0,0,0,1,1,1},
+				{1,0,0,0,0,1,0,3,0,0,3,0,0,1},
+				{1,0,0,0,0,1,3,1,1,1,1,0,0,1},
+				{1,0,0,0,0,3,0,4,0,1,1,0,0,1},
+				{1,0,2,0,0,1,0,1,0,0,3,0,1,1},
 				{1,1,1,1,1,1,0,1,1,3,0,3,0,1},
 				{0,0,1,0,3,0,0,3,0,3,0,3,0,1},
 				{0,0,1,0,0,0,0,1,0,0,0,0,0,1},
 				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
+				
+				
+//				{1,1,1,1,1,1,1,1,1,1,1,1,0,0},
+//				{1,2,2,0,0,1,0,0,0,0,0,1,1,1},
+//				{1,2,2,0,0,1,0,3,0,0,3,0,0,1},
+//				{1,2,2,0,0,1,3,1,1,1,1,0,0,1},
+//				{1,2,2,0,0,3,0,4,0,1,1,0,0,1},
+//				{1,2,2,0,0,1,0,1,0,0,3,0,1,1},
+//				{1,1,1,1,1,1,0,1,1,3,0,3,0,1},
+//				{0,0,1,0,3,0,0,3,0,3,0,3,0,1},
+//				{0,0,1,0,0,0,0,1,0,0,0,0,0,1},
+//				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
 		};
 		board = lvl2;  //board.clone(lvl2); albo forem
 		
