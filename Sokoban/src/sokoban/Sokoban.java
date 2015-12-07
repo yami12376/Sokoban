@@ -62,6 +62,23 @@ public class Sokoban extends Applet implements KeyListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			 
+			 File   sourceimage4 = new File("C:/Users/Ja/Documents/Sokoban/Chest.jpg");
+			 try {
+				Image image = ImageIO.read(sourceimage4);
+				box = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+			 File   sourceimage5 = new File("C:/Users/Ja/Documents/Sokoban/player.jpg");
+			 try {
+				Image image = ImageIO.read(sourceimage5);
+				   hero = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
 		 
 		applet = this;
 		applet.addKeyListener(this);
@@ -71,12 +88,8 @@ public class Sokoban extends Applet implements KeyListener {
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
 	
-////	box = getImage(getDocumentBase(),"Images/Chest.jpg");
+
 //	placedBox = getImage(getDocumentBase(),"Images/chestPlaced.jpg");
-//	hero = getImage(getDocumentBase(),"Images/player.jpg");
-//	wall = getImage(getDocumentBase(),"Wall.jpg");
-//    exit = getImage(getDocumentBase(),"Images/point.jpg");
-//    floor = getImage(getDocumentBase(),"Images/floor.jpg");
 	
       task.makeBoard();
 	}
@@ -111,37 +124,39 @@ public class Sokoban extends Applet implements KeyListener {
 		{
 			for (int j=0; j<task.board[0].length;j++)
 			{
-				if(task.exits[i][j]==2)
-				{
-					g.setColor(Color.BLUE);
-					g.fillRect(40*j, 40*i, 40, 40);
-					//break;
-				}
+				
 				switch(task.board[i][j])
 				{
-					case 0:
+					case 0: // pod³oga z obrazka -> floor
 						g.drawImage(floor, 40*j, 40*i, applet); //w tym aplecie this
 						break;
-					case 1:
+					case 1: // sciana z obrazka -> wall
 						g.drawImage(wall, 40*j, 40*i, applet);
-//						g.setColor(Color.RED);
-//						g.fillRect(40*j, 40*i, 40, 40);
 						break;
-//					case 2:
-//						g.setColor(Color.BLUE);
-//						g.fillRect(40*j, 40*i, 40, 40);
-//						break;
-					case 3:
-						g.drawImage(exit, 40*j, 40*i, applet);
-//						g.setColor(Color.GREEN);
-//						g.fillOval(40*j, 40*i, 40, 40);
-						break;
-					case 4:
-						g.setColor(Color.YELLOW);
-						g.fillOval(40*j, 40*i, 40, 40);
-						break;
+
+					
+					
+				}
+				if(task.exits[i][j]==2)
+				{
+					g.drawImage(exit, 40*j, 40*i, this); // rysuje wyjscia
+				}
+				
+				switch(task.board[i][j]) // inaczej po najechaniu skrzynka na X
+				// znika³a skyrznka
+				{
+				case 3: // skrzynka z obrazka -> box
+					g.drawImage(box, 40*j, 40*i, applet);
+					break;
+					// zeby postac byla z przodu
+				case 4: // rysuje postaæ
+					g.drawImage(floor, 40*j, 40*i, applet);
+					g.drawImage(hero, 40*j, 40*i, applet);
+					break;
 				}
 			}
+			
+			
 		}
 	}
 
@@ -151,16 +166,16 @@ public class Sokoban extends Applet implements KeyListener {
 		switch(arg0.getKeyCode())
 		{
 		//arg0.getKeyCode()  37 <-       38 góra  -> 39  dó³ 40 
-			case 37:
+			case 37: // w lewo strzalka
 				task.move('l');
 				break;
-			case 38:
+			case 38: // do gory strzalka
 				task.move('g');
 				break;
-			case 39:
+			case 39: // w prawo strzalka
 				task.move('p');
 				break;
-			case 40:
+			case 40: // do dolu strzalka
 				task.move('d');
 				break;
 //			case default :
