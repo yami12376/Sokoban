@@ -7,7 +7,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Timer;
+
+import javax.imageio.ImageIO;
 
 import com.sun.jmx.snmp.tasks.Task;
 
@@ -31,7 +36,33 @@ public class Sokoban extends Applet implements KeyListener {
 	
 	public void init()
 	{
-
+		 Class<Sokoban> klasa = Sokoban.class; 
+		 File sourceimage = new File("C:/Users/Ja/Documents/Sokoban/Wall.jpg");
+		 try {
+			Image image = ImageIO.read(sourceimage);
+			wall = image;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		 
+		 File   sourceimage2 = new File("C:/Users/Ja/Documents/Sokoban/floor.jpg");
+		 try {
+			Image image = ImageIO.read(sourceimage2);
+			floor = image;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+		 
+		 File   sourceimage3 = new File("C:/Users/Ja/Documents/Sokoban/point.jpg");
+			 try {
+				Image image = ImageIO.read(sourceimage3);
+				exit = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
 		applet = this;
 		applet.addKeyListener(this);
 	applet.setSize(rozmiar1, rozmiar2);	
@@ -40,12 +71,12 @@ public class Sokoban extends Applet implements KeyListener {
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
 	
-	box = getImage(getDocumentBase(),"Images/Chest.jpg");
-	placedBox = getImage(getDocumentBase(),"Images/chestPlaced.jpg");
-	hero = getImage(getDocumentBase(),"Images/player.jpg");
-	wall = getImage(getDocumentBase(),"Images/Wall.jpg");
-    exit = getImage(getDocumentBase(),"Images/point.jpg");
-    floor = getImage(getDocumentBase(),"Images/floor.jpg");
+////	box = getImage(getDocumentBase(),"Images/Chest.jpg");
+//	placedBox = getImage(getDocumentBase(),"Images/chestPlaced.jpg");
+//	hero = getImage(getDocumentBase(),"Images/player.jpg");
+//	wall = getImage(getDocumentBase(),"Wall.jpg");
+//    exit = getImage(getDocumentBase(),"Images/point.jpg");
+//    floor = getImage(getDocumentBase(),"Images/floor.jpg");
 	
       task.makeBoard();
 	}
@@ -89,10 +120,10 @@ public class Sokoban extends Applet implements KeyListener {
 				switch(task.board[i][j])
 				{
 					case 0:
-						g.drawImage(floor, 40*j, 40*i, this); //w tym aplecie this
+						g.drawImage(floor, 40*j, 40*i, applet); //w tym aplecie this
 						break;
 					case 1:
-						g.drawImage(wall, 40*j, 40*i, this);
+						g.drawImage(wall, 40*j, 40*i, applet);
 //						g.setColor(Color.RED);
 //						g.fillRect(40*j, 40*i, 40, 40);
 						break;
@@ -101,8 +132,9 @@ public class Sokoban extends Applet implements KeyListener {
 //						g.fillRect(40*j, 40*i, 40, 40);
 //						break;
 					case 3:
-						g.setColor(Color.GREEN);
-						g.fillOval(40*j, 40*i, 40, 40);
+						g.drawImage(exit, 40*j, 40*i, applet);
+//						g.setColor(Color.GREEN);
+//						g.fillOval(40*j, 40*i, 40, 40);
 						break;
 					case 4:
 						g.setColor(Color.YELLOW);
