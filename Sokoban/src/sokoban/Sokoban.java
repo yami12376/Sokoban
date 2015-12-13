@@ -45,9 +45,17 @@ public class Sokoban extends Applet implements KeyListener {
 	
 	public void init()
 	{
+		 File directory = new File (".");
+		 String path = "";
+		 try {
+			 	path =     directory.getCanonicalPath();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
-		 File sourceimage = new File("C:/Users/Jaworski/Desktop/Skoban/Wall.jpg");
+		 File sourceimage = new File(path+"/Wall.jpg");
 		 try {
 			Image image = ImageIO.read(sourceimage);
 			wall = image;
@@ -55,8 +63,8 @@ public class Sokoban extends Applet implements KeyListener {
 			e.printStackTrace();
 		}
 		
-		 
-		 File   sourceimage2 = new File("C:/Users/Jaworski/Desktop/Skoban/floor.jpg");
+
+		 File   sourceimage2 = new File(path + "/floor.jpg");
 		 try {
 			Image image = ImageIO.read(sourceimage2);
 			floor = image;
@@ -65,7 +73,7 @@ public class Sokoban extends Applet implements KeyListener {
 		}
 		 
 		 
-		 File   sourceimage3 = new File("C:/Users/Jaworski/Desktop/Skoban/point.jpg");
+		 File   sourceimage3 = new File(path + "/point.jpg");
 			 try {
 				Image image = ImageIO.read(sourceimage3);
 				exit = image;
@@ -73,7 +81,7 @@ public class Sokoban extends Applet implements KeyListener {
 				e.printStackTrace();
 			}
 			 
-			 File   sourceimage4 = new File("C:/Users/Jaworski/Desktop/Skoban/Chest.jpg");
+			 File   sourceimage4 = new File(path + "/Chest.jpg");
 			 try {
 				Image image = ImageIO.read(sourceimage4);
 				box = image;
@@ -81,7 +89,7 @@ public class Sokoban extends Applet implements KeyListener {
 				e.printStackTrace();
 			}
 			 
-			 File   sourceimage5 = new File("C:/Users/Jaworski/Desktop/Skoban/player.jpg");
+			 File   sourceimage5 = new File(path +"/player.jpg");
 			 try {
 				Image image = ImageIO.read(sourceimage5);
 				   hero = image;
@@ -100,7 +108,6 @@ public class Sokoban extends Applet implements KeyListener {
 	timer.scheduleAtFixedRate(task, 5, 5);
 	
 
-//	placedBox = getImage(getDocumentBase(),"Images/chestPlaced.jpg");
 	
       task.makeBoard();
 	}
