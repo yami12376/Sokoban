@@ -26,13 +26,13 @@ public class movingAplet  extends Applet{
 	}
 	public void update(Graphics g) //update-repaint trafia tu
 	{
-		bg.clearRect(0, 0, rozmiar1, rozmiar2); //czyœcimy bufor
-		paint(bg); //do obrazka w pamiêci->bufora rysujemy
+		bg.clearRect(0, 0, rozmiar1, rozmiar2); //czyscimy bufor
+		paint(bg); //do obrazka w pamieci->bufora rysujemy
 		g.drawImage(bufor, 0,0, applet);
-		 //likwidujemy efekt migotania, rysujemy bufor z pamiêci
+		 //likwidujemy efekt migotania, rysujemy bufor z pamieci
 	}
 	
-	public void paint(Graphics g)//jak nie by³o update-repaint trafiamy tu.
+	public void paint(Graphics g)//jak nie bylo update-repaint trafiamy tu.
 	{
 		g.setColor((Color.RED));
 		g.fillRect(task.poz1, task.poz2, 100, 100);

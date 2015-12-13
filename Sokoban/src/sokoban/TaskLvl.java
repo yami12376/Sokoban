@@ -11,7 +11,7 @@ public class TaskLvl extends TimerTask
 	//boolean endGame = false; //czy potrzebne?
 	public void run() 
 	{
-		if(endGame()==true) //sprawdza czy konie gry nast¹pi³
+		if(endGame()==true) //sprawdza czy konie gry nastapil
 		{
 			
 			Sokoban.stan =  2;
