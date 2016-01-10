@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 
 import com.sun.jmx.snmp.tasks.Task;
 
+import javafx.scene.control.Menu;
+
 public class Sokoban extends Applet implements KeyListener {
 	int rozmiar1 = 14*40;
 	int rozmiar2 = 10*40;
@@ -132,7 +134,7 @@ public class Sokoban extends Applet implements KeyListener {
 				break;
 		}
             }else if (State == State.MENU) {
-                menu.render(g);
+                ((Object) menu).render(g);
             }
             
 	}
