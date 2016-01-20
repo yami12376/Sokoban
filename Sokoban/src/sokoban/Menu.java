@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package sokoban;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.Rectangle;
+import java.awt.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -23,7 +20,6 @@ public class Menu {
         Font titleFont = new Font("Arial", Font.BOLD, 50);
         g.setFont(titleFont);
         g.setColor(Color.white);
-        g.drawString("Sokoban", 180, 100);
         
         Font buttonsFont = new Font("Arial", Font.BOLD, 30);
         g.setFont(buttonsFont);
@@ -33,4 +29,10 @@ public class Menu {
         g2d.draw(playButton);
         g2d.draw(quitButton);
     }
+            /**
+         * @param args the command line argumentsz
+         */
+        public static void main(String[] args) {
+
+        }
 }

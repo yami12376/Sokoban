@@ -1,6 +1,5 @@
 annotation.processing.enabled=true
 annotation.processing.enabled.in.editor=false
-annotation.processing.processor.options=
 annotation.processing.processors.list=
 annotation.processing.run.all.processors=true
 annotation.processing.source.output=${build.generated.sources.dir}/ap-source-output
@@ -57,7 +56,11 @@ javadoc.splitindex=true
 javadoc.use=true
 javadoc.version=false
 javadoc.windowtitle=
+<<<<<<< HEAD
 main.class=sokoban.Sokoban
+=======
+main.class=sokoban.Menu
+>>>>>>> d85d89883c92a6c0c9f098446cb3463e793be69b
 manifest.file=manifest.mf
 meta.inf.dir=${src.dir}/META-INF
 mkdist.disabled=false

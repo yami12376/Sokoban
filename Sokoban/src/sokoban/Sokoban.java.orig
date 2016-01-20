@@ -19,15 +19,28 @@ import java.awt.Label;
 import javax.swing.JPanel;
 
 public class Sokoban extends Applet implements KeyListener {
+<<<<<<< HEAD
+    	   public static void main(String[] args) {
+        // TODO code application logic here
+    }
+	int rozmiar1 = 14*40; // Here size fix !
+	int rozmiar2 = 10*40; // Here size fix !
+=======
 	int rozmiar1 = 14*64;
 	int rozmiar2 = 10*64;
+>>>>>>> d85d89883c92a6c0c9f098446cb3463e793be69b
 	static 	Applet  applet;
 	TaskLvl task = new TaskLvl();
 	Timer timer = new Timer();
 	Image bufor;
 	Graphics bg; //rysuje obrazek
+<<<<<<< HEAD
 	static int stan = 1; //czy zakonczona gra-> stan =  1, gra sie toczy i rysuj plansze.
         
+=======
+	static int stan = 1; //czy zakonczona gra-> 1 sie toczy i rysuj plansze.
+
+>>>>>>> d85d89883c92a6c0c9f098446cb3463e793be69b
         Menu menu;
 	
 	Image box;
@@ -36,7 +49,7 @@ public class Sokoban extends Applet implements KeyListener {
 	Image wall;
 	Image exit;
 	Image placedBox;
-        
+	
 	int whichLevel  = 0;
         
         public static enum STATE{
@@ -47,7 +60,7 @@ public class Sokoban extends Applet implements KeyListener {
         
         public static STATE State = STATE.MENU;
 	
-	
+
     public Image loadFile(String path, String name)
     {
     	Image image = null;
@@ -73,13 +86,59 @@ public class Sokoban extends Applet implements KeyListener {
 		}
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
-		 
+<<<<<<< HEAD
+                 
 		wall = loadFile(path, "Wall");
 		floor = loadFile(path, "floor");
 		exit = loadFile(path, "point");
 		box = loadFile(path, "Chest"); 
 		hero = loadFile(path, "player");
+		
+=======
+		 File sourceimage = new File(path+"/graphics/wall.png");
+		 try {
+			Image image = ImageIO.read(sourceimage);
+			wall = image;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+
+		 File   sourceimage2 = new File(path + "/graphics/floor.png");
+		 try {
+			Image image = ImageIO.read(sourceimage2);
+			floor = image;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+		 
+		 File   sourceimage3 = new File(path + "/graphics/targetSpot.png");
+			 try {
+				Image image = ImageIO.read(sourceimage3);
+				exit = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			 
+			 File   sourceimage4 = new File(path + "/graphics/box.png");
+			 try {
+				Image image = ImageIO.read(sourceimage4);
+				box = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+			 File   sourceimage5 = new File(path +"/graphics/player.png");
+			 try {
+				Image image = ImageIO.read(sourceimage5);
+				   hero = image;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			 
+		 
+>>>>>>> d85d89883c92a6c0c9f098446cb3463e793be69b
 		applet = this;
 		applet.addKeyListener(this);
                 applet.addMouseListener(new MouseInput());
@@ -88,7 +147,7 @@ public class Sokoban extends Applet implements KeyListener {
 	bufor = createImage(rozmiar1, rozmiar2);
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
-	
+
       task.makeBoard(0); // Here X, Y
 	}
 	public void update(Graphics g) //update-repaint trafia tu
@@ -106,7 +165,7 @@ public class Sokoban extends Applet implements KeyListener {
 		{
 			case 1:
 				drawLevel(g);
-				break;
+				break;			
 		}
             }
             if(State == State.NEXT) { // odpala X razy metode nizej.
@@ -144,7 +203,7 @@ public class Sokoban extends Applet implements KeyListener {
 						break;
 					case 1: // sciana z obrazka -> wall
 						g.drawImage(wall, 64*j, 64*i, applet);
-						break;
+						break;								
 				}
 				if(task.exits[i][j]==2)
 				{
@@ -163,7 +222,7 @@ public class Sokoban extends Applet implements KeyListener {
 					g.drawImage(hero, 64*j, 64*i, applet);
 					break;
 				}
-			}
+			}			
 		}
                 g.drawString("Level 1", 10, 30);
 	}
@@ -191,10 +250,10 @@ public class Sokoban extends Applet implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent arg0)
-	{
+	{	
 	}
 	public void keyTyped(KeyEvent arg0) 
 	{
 	}
-		
+	
 	}
