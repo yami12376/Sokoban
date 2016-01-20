@@ -61,7 +61,7 @@ public class Sokoban extends Applet implements KeyListener {
     {
     	Image image = null;
     	
-    	 File   imageSource = new File(path + "/" +  name + ".jpg");
+    	 File   imageSource = new File(path + "/" +  name + ".png");
 		 try {
 			   image = ImageIO.read(imageSource);			
 		} catch (IOException e) {
@@ -86,10 +86,10 @@ public class Sokoban extends Applet implements KeyListener {
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
 			 
-		wall = loadFile(path, "Wall");
+		wall = loadFile(path, "wall");
 		floor = loadFile(path, "floor");
-		exit = loadFile(path, "point");
-		box = loadFile(path, "Chest"); 
+		exit = loadFile(path, "targetSpot");
+		box = loadFile(path, "box"); 
 		hero = loadFile(path, "player");
 			 
 		applet = this;
@@ -100,7 +100,7 @@ public class Sokoban extends Applet implements KeyListener {
 	bufor = createImage(rozmiar1, rozmiar2);
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
-            task.makeBoard();
+            task.makeBoard(0);
             creator = new Creator();
 	}
 	public void update(Graphics g) //update-repaint trafia tu

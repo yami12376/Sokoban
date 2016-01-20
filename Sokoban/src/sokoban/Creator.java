@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
@@ -243,8 +245,25 @@ public class Creator {
         });
     }
     
+    
+    private ImageIcon loadFile(String path, String name)
+    {
+    	Image image = null;
+    	
+    	 File   imageSource = new File(path + "/" +  name + ".png");
+		 try {
+			   image = ImageIO.read(imageSource);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 ImageIcon imageIcon = new ImageIcon(image);
+		 
+		 return imageIcon;
+    }
+    
     private void getGraphics()
     {
+   
         File directory = new File (".");
         String path = "";
         
@@ -294,17 +313,32 @@ public class Creator {
             e.printStackTrace();
         }*/
 		
-        wallImage = new ImageIcon(path + "\\graphics\\gameElements\\wall.png");
-        floorImage = new ImageIcon(path + "\\graphics\\gameElements\\floor.png");
-        targetSpotImage = new ImageIcon(path + "\\graphics\\gameElements\\targetSpot.png");
-        boxImage = new ImageIcon(path + "\\graphics\\gameElements\\box.png");       
-        playerImage = new ImageIcon(path + "\\graphics\\gameElements\\player.png");
+        wallImage = loadFile(path, "wall");
+		floorImage = loadFile(path, "floor");
+		targetSpotImage = loadFile(path, "targetSpot");
+		boxImage = loadFile(path, "box"); 
+		playerImage = loadFile(path, "player");
         
-        wallImageIcon = new ImageIcon(path + "\\graphics\\icons\\wall.png");
-        floorImageIcon = new ImageIcon(path + "\\graphics\\icons\\floor.png");
-        targetSpotImageIcon = new ImageIcon(path + "\\graphics\\icons\\targetSpot.png");
-        boxImageIcon = new ImageIcon(path + "\\graphics\\icons\\box.png");       
-        playerImageIcon = new ImageIcon(path + "\\graphics\\icons\\player.png");		
+		wallImageIcon = loadFile(path, "wall");
+		floorImageIcon = loadFile(path, "floor");
+		targetSpotImageIcon = loadFile(path, "targetSpot");
+		boxImageIcon = loadFile(path, "box"); 
+		playerImageIcon = loadFile(path, "player");
+	        
+        
+      
+//		
+//		wallImage = new ImageIcon(path + "\\graphics\\gameElements\\wall.png");
+//        floorImage = new ImageIcon(path + "\\graphics\\gameElements\\floor.png");
+//        targetSpotImage = new ImageIcon(path + "\\graphics\\gameElements\\targetSpot.png");
+//        boxImage = new ImageIcon(path + "\\graphics\\gameElements\\box.png");       
+//        playerImage = new ImageIcon(path + "\\graphics\\gameElements\\player.png");
+//        
+//        wallImageIcon = new ImageIcon(path + "\\graphics\\icons\\wall.png");
+//        floorImageIcon = new ImageIcon(path + "\\graphics\\icons\\floor.png");
+//        targetSpotImageIcon = new ImageIcon(path + "\\graphics\\icons\\targetSpot.png");
+//        boxImageIcon = new ImageIcon(path + "\\graphics\\icons\\box.png");       
+//        playerImageIcon = new ImageIcon(path + "\\graphics\\icons\\player.png");		
     }
     
     private void createNewBoard()
