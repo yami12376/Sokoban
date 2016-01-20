@@ -127,6 +127,7 @@ public class Sokoban extends Applet implements KeyListener {
 	{
 		whichLevel++;
 		//applet.repaint();
+
 		 task.makeBoard(whichLevel);
 		  drawLevel(g);
 	}

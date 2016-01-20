@@ -3,6 +3,8 @@ package sokoban;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
+import javafx.scene.input.TouchPoint.State;
+
 public class TaskLvl extends TimerTask 
 {
 	BuildInLvls lvls = new BuildInLvls();
@@ -40,7 +42,11 @@ public class TaskLvl extends TimerTask
 	}
 	public void makeBoard(int thisLvl)
 	{ 
-		
+		if(thisLvl > lvls.lista.size())
+		{
+			Sokoban.State = Sokoban.State.MENU;
+			return; // wychodzi z metody.
+		}
 		// Sokoban.State = Sokoban.State.GAME;
 		if(board != lvls.lista.get(thisLvl))
 		{
