@@ -16,17 +16,18 @@ import javax.imageio.ImageIO;
 
 import com.sun.jmx.snmp.tasks.Task;
 
-import javafx.scene.control.Menu;
-
 public class Sokoban extends Applet implements KeyListener {
-	int rozmiar1 = 14*40;
-	int rozmiar2 = 10*40;
+    	   public static void main(String[] args) {
+        // TODO code application logic here
+    }
+	int rozmiar1 = 14*40; // Here size fix !
+	int rozmiar2 = 10*40; // Here size fix !
 	static 	Applet  applet;
 	TaskLvl task = new TaskLvl();
 	Timer timer = new Timer();
 	Image bufor;
 	Graphics bg; //rysuje obrazek
-	static int stan = 1; //czy zakonczona gra-> 1 sie toczy i rysuj plansze.
+	static int stan = 1; //czy zakonczona gra-> stan =  1, gra sie toczy i rysuj plansze.
         
         Menu menu;
 	
@@ -36,15 +37,32 @@ public class Sokoban extends Applet implements KeyListener {
 	Image wall;
 	Image exit;
 	Image placedBox;
+	
+	int whichLevel  = 0;
         
         public static enum STATE{
             MENU,
             GAME,
+            NEXT,
         }
         
         public static STATE State = STATE.MENU;
 	
-	
+
+    public Image loadFile(String path, String name)
+    {
+    	Image image = null;
+    	
+    	 File   imageSource = new File(path + "/" +  name + ".jpg");
+		 try {
+			   image = ImageIO.read(imageSource);			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+		 return image;
+    }
+        
 	public void init()
 	{
 		 File directory = new File (".");
@@ -52,54 +70,17 @@ public class Sokoban extends Applet implements KeyListener {
 		 try {
 			 	path =     directory.getCanonicalPath();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
-		 File sourceimage = new File(path+"/Wall.jpg");
-		 try {
-			Image image = ImageIO.read(sourceimage);
-			wall = image;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+                 
+		wall = loadFile(path, "Wall");
+		floor = loadFile(path, "floor");
+		exit = loadFile(path, "point");
+		box = loadFile(path, "Chest"); 
+		hero = loadFile(path, "player");
 		
-
-		 File   sourceimage2 = new File(path + "/floor.jpg");
-		 try {
-			Image image = ImageIO.read(sourceimage2);
-			floor = image;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		 
-		 
-		 File   sourceimage3 = new File(path + "/point.jpg");
-			 try {
-				Image image = ImageIO.read(sourceimage3);
-				exit = image;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			 
-			 File   sourceimage4 = new File(path + "/Chest.jpg");
-			 try {
-				Image image = ImageIO.read(sourceimage4);
-				box = image;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			 
-			 File   sourceimage5 = new File(path +"/player.jpg");
-			 try {
-				Image image = ImageIO.read(sourceimage5);
-				   hero = image;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			 
-		 
 		applet = this;
 		applet.addKeyListener(this);
                 applet.addMouseListener(new MouseInput());
@@ -108,10 +89,8 @@ public class Sokoban extends Applet implements KeyListener {
 	bufor = createImage(rozmiar1, rozmiar2);
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
-	
 
-	
-      task.makeBoard();
+      task.makeBoard(0); // Here X, Y
 	}
 	public void update(Graphics g) //update-repaint trafia tu
 	{
@@ -128,19 +107,28 @@ public class Sokoban extends Applet implements KeyListener {
 		{
 			case 1:
 				drawLevel(g);
-				break;
-			case 2:
-				endScreen(g);
-				break;
+				break;			
 		}
-            }else if (State == State.MENU) {
-                ((Object) menu).render(g);
             }
-            
+            if(State == State.NEXT) { // odpala X razy metode nizej.
+            	NextLvl(g);
+            }
+            if (State == State.MENU) {
+                menu.render(g);
+            }
 	}
 	public void endScreen(Graphics g) //wyswietla komunikat/grafike jak przeszlismy gre
 	{
+		 // task.makeBoard(true);
+		//  drawLevel(g);
 		
+	}
+	public void NextLvl(Graphics g) 
+	{
+		whichLevel++;
+		//applet.repaint();
+		 task.makeBoard(whichLevel);
+		  drawLevel(g);
 	}
 	public void drawLevel(Graphics g)
 	{
@@ -186,10 +174,10 @@ public class Sokoban extends Applet implements KeyListener {
 
 	public void keyPressed(KeyEvent arg0) 
 	{
-            if (State == State.GAME) {
+            if (State == State.GAME || State == State.NEXT) {
                             switch(arg0.getKeyCode())
 		{
-		//arg0.getKeyCode()  37 <-       38 gora  -> 39  d� 40 
+		//arg0.getKeyCode()  37 <-       38 gora  -> 39  , dol 40 
 			case 37: // w lewo strzalka
 				task.move('l');
 				break;
@@ -202,25 +190,15 @@ public class Sokoban extends Applet implements KeyListener {
 			case 40: // do dolu strzalka
 				task.move('d');
 				break;
-//			case default :
-//				break;		
 		}
             }
 	}
 
 	public void keyReleased(KeyEvent arg0)
-	{
-
-		
+	{	
 	}
-
 	public void keyTyped(KeyEvent arg0) 
 	{
+	}
 	
-		
 	}
-		
-	}
-
-
-

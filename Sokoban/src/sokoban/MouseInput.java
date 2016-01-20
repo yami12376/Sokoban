@@ -25,7 +25,7 @@ public class MouseInput implements MouseListener{
             public Rectangle playButton = new Rectangle(235, 150, 100, 50);
             public Rectangle quitButton = new Rectangle(235, 250, 100, 50);
             */
-            if(mouseX >= 235 && mouseX <= 335)
+            if(mouseX >= 235 && mouseX <= 335) // nie tylko w menu dzia³a !
             {
                 if (mouseY >= 150 && mouseY <= 200) {
                     //Pressed play

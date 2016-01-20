@@ -1,9 +1,13 @@
 package sokoban;
 
+import java.util.ArrayList;
 import java.util.TimerTask;
 
 public class TaskLvl extends TimerTask 
 {
+	BuildInLvls lvls = new BuildInLvls();
+	
+	
 	int board[][] = new int[10][14];
 	int exits[][] = new int[10][14]; //tak zeby luzno po wyjsciach chodzic
 	int poz_HeroY = 4;
@@ -11,14 +15,16 @@ public class TaskLvl extends TimerTask
 	//boolean endGame = false; //czy potrzebne?
 	public void run() 
 	{
-		if(endGame()==true) //sprawdza czy konie gry nastapil
+		
+		if(endGame()==true && Sokoban.State != Sokoban.State.MENU) //sprawdza czy konie gry nastapil
 		{
-			
-			Sokoban.stan =  2;
+			Sokoban.State = Sokoban.STATE.NEXT;
+			//Sokoban.re
+			//Sokoban.stan =  2; // here next LVL todo
 		}
 		Sokoban.applet.repaint();	
 	}
-	public boolean endGame()
+	public boolean endGame() // sprawdza przy ka¿dym kroku czy zakoñczyæ grê, czy klocki le¿¹ gdzie powinny
 	{
 		for (int i=0; i<board.length; i++)
 		{
@@ -28,53 +34,28 @@ public class TaskLvl extends TimerTask
 				{
 						return false;
 				}
-				
 			}
 		}
 		return true;
 	}
-	public void makeBoard()
+	public void makeBoard(int thisLvl)
 	{ 
-		// 0 - puste pola
-		// 1- bloki przez ktore nie mozemy przejsc, ani ich przesuwac
-		// 2 - pola na ktore kamienie maja trafic
-		// 3 - skrzynki, te ktore poruszamy
-		// 4 - to my
 		
-		int lvl2[][] = {
-				{1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-				{1,0,0,0,0,1,0,0,0,0,0,1,1,1},
-				{1,0,0,0,0,1,0,3,0,0,3,0,0,1},
-				{1,3,0,0,0,1,3,1,1,1,1,0,0,1},
-				{1,2,0,0,0,3,0,4,0,1,1,0,0,1},
-				{1,0,2,0,0,1,0,1,0,0,3,0,1,1},
-				{1,1,1,1,1,1,0,1,1,3,0,3,0,1},
-				{0,0,1,0,3,0,0,3,0,3,0,3,0,1},
-				{0,0,1,0,0,0,0,1,0,0,0,0,0,1},
-				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
-				
-				
-//				{1,1,1,1,1,1,1,1,1,1,1,1,0,0},
-//				{1,2,2,0,0,1,0,0,0,0,0,1,1,1},
-//				{1,2,2,0,0,1,0,3,0,0,3,0,0,1},
-//				{1,2,2,0,0,1,3,1,1,1,1,0,0,1},
-//				{1,2,2,0,0,3,0,4,0,1,1,0,0,1},
-//				{1,2,2,0,0,1,0,1,0,0,3,0,1,1},
-//				{1,1,1,1,1,1,0,1,1,3,0,3,0,1},
-//				{0,0,1,0,3,0,0,3,0,3,0,3,0,1},
-//				{0,0,1,0,0,0,0,1,0,0,0,0,0,1},
-//				{0,0,1,1,1,1,1,1,1,1,1,1,1,1}
-		};
-		board = lvl2;  //board.clone(lvl2); albo forem
+		// Sokoban.State = Sokoban.State.GAME;
+		if(board != lvls.lista.get(thisLvl))
+		{
+			board = lvls.lista.get(thisLvl);  //board.clone(lvl2); albo forem
+			
+			 poz_HeroY = 4;
+			 poz_HeroX = 7;	
+			 if(Sokoban.State != Sokoban.State.MENU)
+			Sokoban.State = Sokoban.State.GAME;
+			 
+			 //restart exists - tablicy wyjsc.
+			 exits = new int[10][14];
+		}
 		
-//		for (int i=0; i<board.length; i++)
-//		{
-//			for (int j=0; j<board[0].length; j++)
-//			{
-//				board[i][j]= lvl2[i][j];
-//			}
-//		}
-		
+
 		for (int i=0; i<board.length; i++)
 		{
 			for (int j=0; j<board[0].length; j++)
@@ -89,7 +70,7 @@ public class TaskLvl extends TimerTask
 	}
 	public void move(char where)
 	{
-		switch(where)
+		switch(where)  // 3 ,1
 		{
 			case 'l':
 				if (board[poz_HeroY][poz_HeroX-1]==0)
@@ -154,6 +135,4 @@ public class TaskLvl extends TimerTask
 		
   		}
 	}
-	
-	
 }
