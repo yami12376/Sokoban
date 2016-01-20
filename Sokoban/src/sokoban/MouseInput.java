@@ -24,17 +24,29 @@ public class MouseInput implements MouseListener{
             /**
             public Rectangle playButton = new Rectangle(235, 150, 100, 50);
             public Rectangle quitButton = new Rectangle(235, 250, 100, 50);
+            *     public Rectangle playButton = new Rectangle(350, 200, 240, 50);
+    public Rectangle creatorButton = new Rectangle(350, 300, 240, 50);
+    public Rectangle quitButton = new Rectangle(350, 400, 240, 50);
             */
-            if(mouseX >= 235 && mouseX <= 335)
+            if(mouseX >= 350 && mouseX <= 590)
             {
-                if (mouseY >= 150 && mouseY <= 200) {
+                if (mouseY >= 200 && mouseY <= 250) {
                     //Pressed play
                     Sokoban.State = Sokoban.STATE.GAME;
                 }
             }
-             if(mouseX >= 235 && mouseX <= 335)
+            
+            if(mouseX >= 350 && mouseX <= 590)
             {
-                if (mouseY >= 250 && mouseY <= 300) {
+                if (mouseY >= 300 && mouseY <= 350) {
+                    //Pressed create levels
+                    Sokoban.Instance().creator.ShowCreator();
+                }
+            }
+            
+            if(mouseX >= 350 && mouseX <= 590)
+            {
+                if (mouseY >= 400 && mouseY <= 450) {
                     //Pressed quit
                     System.exit(1);
                 }
