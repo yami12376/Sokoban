@@ -15,17 +15,19 @@ import java.util.Timer;
 import javax.imageio.ImageIO;
 
 import com.sun.jmx.snmp.tasks.Task;
+import java.awt.Label;
+import javax.swing.JPanel;
 
 public class Sokoban extends Applet implements KeyListener {
-	int rozmiar1 = 14*40;
-	int rozmiar2 = 10*40;
+	int rozmiar1 = 14*64;
+	int rozmiar2 = 10*64;
 	static 	Applet  applet;
 	TaskLvl task = new TaskLvl();
 	Timer timer = new Timer();
 	Image bufor;
 	Graphics bg; //rysuje obrazek
 	static int stan = 1; //czy zakonczona gra-> 1 sie toczy i rysuj plansze.
-        
+
         Menu menu;
 	
 	Image box;
@@ -55,7 +57,7 @@ public class Sokoban extends Applet implements KeyListener {
 		}
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
-		 File sourceimage = new File(path+"/Wall.jpg");
+		 File sourceimage = new File(path+"/graphics/wall.png");
 		 try {
 			Image image = ImageIO.read(sourceimage);
 			wall = image;
@@ -64,7 +66,7 @@ public class Sokoban extends Applet implements KeyListener {
 		}
 		
 
-		 File   sourceimage2 = new File(path + "/floor.jpg");
+		 File   sourceimage2 = new File(path + "/graphics/floor.png");
 		 try {
 			Image image = ImageIO.read(sourceimage2);
 			floor = image;
@@ -73,7 +75,7 @@ public class Sokoban extends Applet implements KeyListener {
 		}
 		 
 		 
-		 File   sourceimage3 = new File(path + "/point.jpg");
+		 File   sourceimage3 = new File(path + "/graphics/targetSpot.png");
 			 try {
 				Image image = ImageIO.read(sourceimage3);
 				exit = image;
@@ -81,7 +83,7 @@ public class Sokoban extends Applet implements KeyListener {
 				e.printStackTrace();
 			}
 			 
-			 File   sourceimage4 = new File(path + "/Chest.jpg");
+			 File   sourceimage4 = new File(path + "/graphics/box.png");
 			 try {
 				Image image = ImageIO.read(sourceimage4);
 				box = image;
@@ -89,7 +91,7 @@ public class Sokoban extends Applet implements KeyListener {
 				e.printStackTrace();
 			}
 			 
-			 File   sourceimage5 = new File(path +"/player.jpg");
+			 File   sourceimage5 = new File(path +"/graphics/player.png");
 			 try {
 				Image image = ImageIO.read(sourceimage5);
 				   hero = image;
@@ -150,36 +152,32 @@ public class Sokoban extends Applet implements KeyListener {
 				switch(task.board[i][j])
 				{
 					case 0: // pod�oga z obrazka -> floor
-						g.drawImage(floor, 40*j, 40*i, applet); //w tym aplecie this
+						g.drawImage(floor, 64*j, 64*i, applet); //w tym aplecie this
 						break;
 					case 1: // sciana z obrazka -> wall
-						g.drawImage(wall, 40*j, 40*i, applet);
-						break;
-
-					
-					
+						g.drawImage(wall, 64*j, 64*i, applet);
+						break;								
 				}
 				if(task.exits[i][j]==2)
 				{
-					g.drawImage(exit, 40*j, 40*i, this); // rysuje wyjscia
+					g.drawImage(exit, 64*j, 64*i, this); // rysuje wyjscia
 				}
 				
 				switch(task.board[i][j]) // inaczej po najechaniu skrzynka na X
 				// znika�a skyrznka
 				{
 				case 3: // skrzynka z obrazka -> box
-					g.drawImage(box, 40*j, 40*i, applet);
+					g.drawImage(box, 64*j, 64*i, applet);
 					break;
 					// zeby postac byla z przodu
 				case 4: // rysuje posta�
-					g.drawImage(floor, 40*j, 40*i, applet);
-					g.drawImage(hero, 40*j, 40*i, applet);
+					g.drawImage(floor, 64*j, 64*i, applet);
+					g.drawImage(hero, 64*j, 64*i, applet);
 					break;
 				}
-			}
-			
-			
+			}			
 		}
+                g.drawString("Level 1", 10, 30);
 	}
 
 	public void keyPressed(KeyEvent arg0) 

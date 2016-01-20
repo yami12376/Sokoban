@@ -12,8 +12,7 @@ public class TaskLvl extends TimerTask
 	public void run() 
 	{
 		if(endGame()==true) //sprawdza czy konie gry nastapil
-		{
-			
+		{			
 			Sokoban.stan =  2;
 		}
 		Sokoban.applet.repaint();	
