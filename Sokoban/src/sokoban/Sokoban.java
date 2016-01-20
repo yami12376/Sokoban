@@ -19,6 +19,14 @@ import java.awt.Label;
 import javax.swing.JPanel;
 
 public class Sokoban extends Applet implements KeyListener {
+        private static Sokoban instance = null;
+
+        public static Sokoban Instance() {
+           if(instance == null) {
+              instance = new Sokoban();
+           }
+           return instance;
+        }
 	int rozmiar1 = 14*64;
 	int rozmiar2 = 10*64;
 	static 	Applet  applet;
@@ -27,9 +35,9 @@ public class Sokoban extends Applet implements KeyListener {
 	Image bufor;
 	Graphics bg; //rysuje obrazek
 	static int stan = 1; //czy zakonczona gra-> stan =  1, gra sie toczy i rysuj plansze.
-        
+
         Menu menu;
-	
+	Creator creator;
 	Image box;
 	Image floor;
 	Image hero;
@@ -41,6 +49,7 @@ public class Sokoban extends Applet implements KeyListener {
         
         public static enum STATE{
             MENU,
+            CREATOR,
             GAME,
             NEXT,
         }
@@ -64,16 +73,19 @@ public class Sokoban extends Applet implements KeyListener {
         
 	public void init()
 	{
+            instance = this;
 		 File directory = new File (".");
 		 String path = "";
+            
 		 try {
-			 	path =     directory.getCanonicalPath();
+                path = directory.getCanonicalPath();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+            
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
-		 
+			 
 		wall = loadFile(path, "Wall");
 		floor = loadFile(path, "floor");
 		exit = loadFile(path, "point");
@@ -88,8 +100,8 @@ public class Sokoban extends Applet implements KeyListener {
 	bufor = createImage(rozmiar1, rozmiar2);
 	bg = bufor.getGraphics();
 	timer.scheduleAtFixedRate(task, 5, 5);
-	
-      task.makeBoard(0); // Here X, Y
+            task.makeBoard();
+            creator = new Creator();
 	}
 	public void update(Graphics g) //update-repaint trafia tu
 	{
@@ -102,8 +114,7 @@ public class Sokoban extends Applet implements KeyListener {
 	public void paint(Graphics g)//jak nie bylo update-repaint trafiamy tu.
 	{
             if (State == STATE.GAME) {
-              		switch(stan)
-		{
+                switch(stan) {
 			case 1:
 				drawLevel(g);
 				break;
@@ -126,7 +137,7 @@ public class Sokoban extends Applet implements KeyListener {
 	{
 		whichLevel++;
 		//applet.repaint();
-
+		
 		 task.makeBoard(whichLevel);
 		  drawLevel(g);
 	}
@@ -136,7 +147,6 @@ public class Sokoban extends Applet implements KeyListener {
 		{
 			for (int j=0; j<task.board[0].length;j++)
 			{
-				
 				switch(task.board[i][j])
 				{
 					case 0: // pod�oga z obrazka -> floor
@@ -144,7 +154,7 @@ public class Sokoban extends Applet implements KeyListener {
 						break;
 					case 1: // sciana z obrazka -> wall
 						g.drawImage(wall, 64*j, 64*i, applet);
-						break;
+						break;								
 				}
 				if(task.exits[i][j]==2)
 				{
@@ -163,7 +173,7 @@ public class Sokoban extends Applet implements KeyListener {
 					g.drawImage(hero, 64*j, 64*i, applet);
 					break;
 				}
-			}
+			}			
 		}
                 g.drawString("Level 1", 10, 30);
 	}
