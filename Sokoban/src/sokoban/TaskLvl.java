@@ -10,10 +10,13 @@ public class TaskLvl extends TimerTask
 	BuildInLvls lvls = new BuildInLvls();
 	
 	
+	
 	int board[][] = new int[10][14];
 	int exits[][] = new int[10][14]; //tak zeby luzno po wyjsciach chodzic
 	int poz_HeroY = 4;
 	int poz_HeroX = 7;
+	
+	Board brd = new Board(board,poz_HeroX,poz_HeroY);
 	//boolean endGame = false; //czy potrzebne?
 	public void run() 
 	{
@@ -46,12 +49,12 @@ public class TaskLvl extends TimerTask
 			return; // wychodzi z metody.
 		}
 		// Sokoban.State = Sokoban.State.GAME;
-		if(board != lvls.lista.get(thisLvl))
+		if(brd != lvls.lista.get(thisLvl))
 		{
-			board = lvls.lista.get(thisLvl);  //board.clone(lvl2); albo forem
-		
-			 poz_HeroY = 4;
-			 poz_HeroX = 7;	
+			brd = lvls.lista.get(thisLvl);  //board.clone(lvl2); albo forem
+		     
+			 poz_HeroY = brd.x;
+			 poz_HeroX = brd.y;
                          
 			 if(Sokoban.State != Sokoban.State.MENU && Sokoban.State != Sokoban.State.End)
 			Sokoban.State = Sokoban.State.GAME;
@@ -61,13 +64,13 @@ public class TaskLvl extends TimerTask
 		}
 		
 		
-		for (int i=0; i<board.length; i++)
+		for (int i=0; i<brd.board.length; i++)
 		{
-			for (int j=0; j<board[0].length; j++)
+			for (int j=0; j<brd.board[0].length; j++)
 			{
-				if (board[i][j]==2)
+				if (brd.board[i][j]==2)
 				{
-						board[i][j] = 0;
+						brd.board[i][j] = 0;
 						exits[i][j] = 2;
 				}
 			}
@@ -77,67 +80,67 @@ public class TaskLvl extends TimerTask
 	{
 		switch(where)  // 3 ,1
 		{
-			case 'l':
-				if (board[poz_HeroY][poz_HeroX-1]==0)
-				{ 
-					board[poz_HeroY][poz_HeroX-1]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroX--;
-				}
-				else if ((board[poz_HeroY][poz_HeroX-1]==3)&&(board[poz_HeroY][poz_HeroX-2]==0))
-				{
-					board[poz_HeroY][poz_HeroX-2]=3;
-					board[poz_HeroY][poz_HeroX-1]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroX--;
-				}
-				break;
-			case 'p':
-				if (board[poz_HeroY][poz_HeroX+1]==0)
-				{ 
-					board[poz_HeroY][poz_HeroX+1]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroX++;
-				}
-				else if ((board[poz_HeroY][poz_HeroX+1]==3)&&(board[poz_HeroY][poz_HeroX+2]==0))
-				{
-					board[poz_HeroY][poz_HeroX+2]=3;
-					board[poz_HeroY][poz_HeroX+1]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroX++;
-				}
-				break;
-			case 'g':
-				if (board[poz_HeroY-1][poz_HeroX]==0)
-				{ 
-					board[poz_HeroY-1][poz_HeroX]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroY--;
-				}
-				else if ((board[poz_HeroY-1][poz_HeroX]==3)&&(board[poz_HeroY-2][poz_HeroX]==0))
-				{
-					board[poz_HeroY-2][poz_HeroX]=3;
-					board[poz_HeroY-1][poz_HeroX]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroY--;
-				}
-				break;
-			case 'd':
-				if (board[poz_HeroY+1][poz_HeroX]==0)
-				{ 
-					board[poz_HeroY+1][poz_HeroX]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroY++;
-				}
-				else if ((board[poz_HeroY+1][poz_HeroX]==3)&&(board[poz_HeroY+2][poz_HeroX]==0))
-				{
-					board[poz_HeroY+2][poz_HeroX]=3;
-					board[poz_HeroY+1][poz_HeroX]=4;
-					board[poz_HeroY][poz_HeroX]=0;
-					poz_HeroY++;
-				}
-				break;
-		
-  		}
-	}
+		case 'l':
+			if (brd.board[poz_HeroY][poz_HeroX-1]==0)
+			{ 
+				brd.board[poz_HeroY][poz_HeroX-1]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroX--;
+			}
+			else if ((brd.board[poz_HeroY][poz_HeroX-1]==3)&&(brd.board[poz_HeroY][poz_HeroX-2]==0))
+			{
+				brd.board[poz_HeroY][poz_HeroX-2]=3;
+				brd.board[poz_HeroY][poz_HeroX-1]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroX--;
+			}
+			break;
+		case 'p':
+			if (brd.board[poz_HeroY][poz_HeroX+1]==0)
+			{ 
+				brd.board[poz_HeroY][poz_HeroX+1]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroX++;
+			}
+			else if ((brd.board[poz_HeroY][poz_HeroX+1]==3)&&(brd.board[poz_HeroY][poz_HeroX+2]==0))
+			{
+				brd.board[poz_HeroY][poz_HeroX+2]=3;
+				brd.board[poz_HeroY][poz_HeroX+1]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroX++;
+			}
+			break;
+		case 'g':
+			if (brd.board[poz_HeroY-1][poz_HeroX]==0)
+			{ 
+				brd.board[poz_HeroY-1][poz_HeroX]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroY--;
+			}
+			else if ((brd.board[poz_HeroY-1][poz_HeroX]==3)&&(brd.board[poz_HeroY-2][poz_HeroX]==0))
+			{
+				brd.board[poz_HeroY-2][poz_HeroX]=3;
+				brd.board[poz_HeroY-1][poz_HeroX]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroY--;
+			}
+			break;
+		case 'd':
+			if (brd.board[poz_HeroY+1][poz_HeroX]==0)
+			{ 
+				brd.board[poz_HeroY+1][poz_HeroX]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroY++;
+			}
+			else if ((brd.board[poz_HeroY+1][poz_HeroX]==3)&&(brd.board[poz_HeroY+2][poz_HeroX]==0))
+			{
+				brd.board[poz_HeroY+2][poz_HeroX]=3;
+				brd.board[poz_HeroY+1][poz_HeroX]=4;
+				brd.board[poz_HeroY][poz_HeroX]=0;
+				poz_HeroY++;
+			}
+			break;
+	
+		}
+}
 }

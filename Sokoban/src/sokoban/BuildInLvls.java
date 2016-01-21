@@ -2,12 +2,16 @@ package sokoban;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
+//import org.apache.commons.io.FileUtils;
 
 public class BuildInLvls {
 
@@ -27,7 +31,9 @@ public class BuildInLvls {
         {0, 0, 1, 0, 3, 0, 0, 3, 0, 3, 0, 3, 0, 1}, //7
         {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1}, //8
         {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}}; //9
-
+    
+  
+    
     int lvl3[][] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
     {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 0, 0, 0, 0, 1, 0, 3, 0, 0, 3, 0, 0, 1},
@@ -38,18 +44,25 @@ public class BuildInLvls {
     {0, 0, 1, 0, 3, 0, 0, 3, 0, 3, 0, 3, 0, 1},
     {0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
     {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+    
+    Board first = new Board(lvl2, lvl2.length, lvl2[1].length); 
+    Board second = new Board(lvl3, lvl3.length, lvl3[1].length); 
 
-    ArrayList<int[][]> lista = new ArrayList<int[][]>();
+    ArrayList<Board> lista = new ArrayList<Board>();
 
     BuildInLvls() {
-        lista.add(lvl2);
-        lista.add(lvl3);
+        lista.add(first);
+        lista.add(second);
 
-        ArrayList<int[][]> lista = loadLvls();
+        ArrayList<Board> lista2 = loadLvls();
+        
+        for (Board item : lista2) {
+             lista.add(item);
+        }
     }
 
-    private ArrayList<int[][]> loadLvls() {
-        ArrayList<int[][]> lista = new ArrayList<int[][]>();
+    private ArrayList<Board> loadLvls() {
+        ArrayList<Board> listaTemp = new ArrayList<Board>();
         String path = "";
         File directory = new File(".");
         try {
@@ -59,7 +72,8 @@ public class BuildInLvls {
         }
 
                  // (path + "/graphics/gameElements/" +  name + ".png");
-        File folder = new File(path + "/lvls");
+   //     File folder = new File(path + "/lvls");
+        File folder = new File("C:/Users/Ja/Documents/Sokoban/Sokoban/lvls");
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
@@ -67,24 +81,46 @@ public class BuildInLvls {
             for (int i = 0; i < listOfFiles.length; i++) {
                 File file = listOfFiles[i];
                 if (file.isFile() && file.getName().endsWith(".sokobanlevel")) {
-                    try {
-                        BufferedReader in = new BufferedReader(new FileReader(file.getAbsolutePath()));
+                    
 
-                        String line;
-                        while ((line = in.readLine()) != null) {
-                            System.out.println(line);
-                        }
-                        in.close();
-
-                      //  String content = FileUtils.readFileToString(file);
-                        /* do somthing with content */
-                    } catch (IOException ex) {
+                    	Scanner skaner;
+                        try {
+                            skaner = new Scanner(file);
+                            List<Integer> temp = new ArrayList<>();
+                            int x = 0;
+                            int y = 0;
+                            while(skaner.hasNextInt())
+                            {
+                                temp.add(skaner.nextInt());
+                            }
+                            x = temp.get(0);
+                            y = temp.get(1);
+                           int[][] loadElements = new int[x][y];
+                            for (int t = 0; t < x; t++) {
+                                for (int j = 0; j < y; j++) {
+                                    loadElements[t][j] = temp.get(2+t*x+j);
+                                } // end 2nd for
+                            } // end 1st for
+                            
+                            //createNewBoard(x, y, loadElements);
+                        
+                            Board brd = new Board(loadElements,x,y);
+                            listaTemp.add(brd);
+                    
+                    } // end try
+                        catch (IOException ex) {
                         Logger.getLogger(BuildInLvls.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        }
-        return lista;
-    }
+                    } // end catch
+                    
 
-}
+                
+       
+    } // end if
+            } // end for
+
+} return listaTemp;
+        } // end loadLvls()
+
+
+
+} // end class
