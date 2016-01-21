@@ -76,68 +76,68 @@ public class TaskLvl extends TimerTask
 			}
 		}
 	}
-	public void move(char where)
+public void move(char where)
 	{
 		switch(where)  // 3 ,1
 		{
 		case 'l':
-			if (brd.board[poz_HeroY][poz_HeroX-1]==0)
+			if (brd.board[brd.y][brd.x-1]==0)
 			{ 
-				brd.board[poz_HeroY][poz_HeroX-1]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroX--;
+				brd.board[brd.y][brd.x-1]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.x--;
 			}
-			else if ((brd.board[poz_HeroY][poz_HeroX-1]==3)&&(brd.board[poz_HeroY][poz_HeroX-2]==0))
+			else if ((brd.board[brd.y][brd.x-1]==3)&&(brd.board[brd.y][brd.x-2]==0))
 			{
-				brd.board[poz_HeroY][poz_HeroX-2]=3;
-				brd.board[poz_HeroY][poz_HeroX-1]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroX--;
+				brd.board[brd.y][brd.x-2]=3;
+				brd.board[brd.y][brd.x-1]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.x--;
 			}
 			break;
 		case 'p':
-			if (brd.board[poz_HeroY][poz_HeroX+1]==0)
+			if (brd.board[brd.y][brd.x+1]==0)
 			{ 
-				brd.board[poz_HeroY][poz_HeroX+1]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroX++;
+				brd.board[brd.y][brd.x+1]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.x++;
 			}
-			else if ((brd.board[poz_HeroY][poz_HeroX+1]==3)&&(brd.board[poz_HeroY][poz_HeroX+2]==0))
+			else if ((brd.board[brd.y][brd.x+1]==3)&&(brd.board[brd.y][brd.x+2]==0))
 			{
-				brd.board[poz_HeroY][poz_HeroX+2]=3;
-				brd.board[poz_HeroY][poz_HeroX+1]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroX++;
+				brd.board[brd.y][brd.x+2]=3;
+				brd.board[brd.y][brd.x+1]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.x++;
 			}
 			break;
 		case 'g':
-			if (brd.board[poz_HeroY-1][poz_HeroX]==0)
+			if (brd.board[brd.y-1][brd.x]==0)
 			{ 
-				brd.board[poz_HeroY-1][poz_HeroX]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroY--;
+				brd.board[brd.y-1][brd.x]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.y--;
 			}
-			else if ((brd.board[poz_HeroY-1][poz_HeroX]==3)&&(brd.board[poz_HeroY-2][poz_HeroX]==0))
+			else if ((brd.board[brd.y-1][brd.x]==3)&&(brd.board[brd.y-2][brd.x]==0))
 			{
-				brd.board[poz_HeroY-2][poz_HeroX]=3;
-				brd.board[poz_HeroY-1][poz_HeroX]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroY--;
+				brd.board[brd.y-2][brd.x]=3;
+				brd.board[brd.y-1][brd.x]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.y--;
 			}
 			break;
 		case 'd':
-			if (brd.board[poz_HeroY+1][poz_HeroX]==0)
+			if (brd.board[brd.y+1][brd.x]==0)
 			{ 
-				brd.board[poz_HeroY+1][poz_HeroX]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroY++;
+				brd.board[brd.y+1][brd.x]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.y++;
 			}
-			else if ((brd.board[poz_HeroY+1][poz_HeroX]==3)&&(brd.board[poz_HeroY+2][poz_HeroX]==0))
+			else if ((brd.board[brd.y+1][brd.x]==3)&&(brd.board[brd.y+2][brd.x]==0))
 			{
-				brd.board[poz_HeroY+2][poz_HeroX]=3;
-				brd.board[poz_HeroY+1][poz_HeroX]=4;
-				brd.board[poz_HeroY][poz_HeroX]=0;
-				poz_HeroY++;
+				brd.board[brd.y+2][brd.x]=3;
+				brd.board[brd.y+1][brd.x]=4;
+				brd.board[brd.y][brd.x]=0;
+				brd.y++;
 			}
 			break;
 	
