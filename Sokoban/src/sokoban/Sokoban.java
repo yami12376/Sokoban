@@ -30,6 +30,8 @@ public class Sokoban extends Applet implements KeyListener {
 	Graphics bg; //rysuje obrazek
 	static int stan = 1; //czy zakonczona gra-> stan =  1, gra sie toczy i rysuj plansze.
 
+        
+        EndScreen endScreen;
         Menu menu;
 	Creator creator;
 	Image box;
@@ -46,6 +48,7 @@ public class Sokoban extends Applet implements KeyListener {
             CREATOR,
             GAME,
             NEXT,
+            End,
         }
         
         public static STATE State = STATE.MENU;
@@ -79,6 +82,7 @@ public class Sokoban extends Applet implements KeyListener {
             
 		 Class<Sokoban> klasa = Sokoban.class; 
                  menu = new Menu();
+                 endScreen = new EndScreen();
 			 
 		wall = loadFile(path, "wall");
 		floor = loadFile(path, "floor");
@@ -119,6 +123,9 @@ public class Sokoban extends Applet implements KeyListener {
             }
             if (State == State.MENU) {
                 menu.render(g);
+            }
+             if (State == State.End) {
+                endScreen.render(g);
             }
 	}
 	public void endScreen(Graphics g) //wyswietla komunikat/grafike jak przeszlismy gre

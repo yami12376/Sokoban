@@ -17,8 +17,8 @@ public class TaskLvl extends TimerTask
 	//boolean endGame = false; //czy potrzebne?
 	public void run() 
 	{
-		
-		if(endGame()==true && Sokoban.State != Sokoban.State.MENU) //sprawdza czy konie gry nastapil
+	// sprawdza czy konie danego lvlu nastapil, jesli tak to idz do nastepnego.
+		if(endGame()==true && Sokoban.State != Sokoban.State.MENU && Sokoban.State != Sokoban.State.End) 
 		{
 			Sokoban.State = Sokoban.STATE.NEXT;
 		}
@@ -42,7 +42,7 @@ public class TaskLvl extends TimerTask
 	{ 
 		if(thisLvl > lvls.lista.size())
 		{
-			Sokoban.State = Sokoban.State.MENU;
+			Sokoban.State = Sokoban.State.End;
 			return; // wychodzi z metody.
 		}
 		// Sokoban.State = Sokoban.State.GAME;
@@ -52,7 +52,8 @@ public class TaskLvl extends TimerTask
 		
 			 poz_HeroY = 4;
 			 poz_HeroX = 7;	
-			 if(Sokoban.State != Sokoban.State.MENU)
+                         
+			 if(Sokoban.State != Sokoban.State.MENU && Sokoban.State != Sokoban.State.End)
 			Sokoban.State = Sokoban.State.GAME;
 				
 			 //restart exists - tablicy wyjsc.
