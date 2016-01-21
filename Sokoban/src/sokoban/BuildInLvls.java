@@ -73,8 +73,9 @@ public class BuildInLvls {
         }
 
                  // (path + "/graphics/gameElements/" +  name + ".png");
-        File folder = new File(path + "/lvls");
-     //   File folder = new File("C:/Users/Ja/Documents/Sokoban/Sokoban/lvls");  ECLIPSE
+        File folder = new File("C:/Users/Ja/Documents/Sokoban/Sokoban/lvls"); //ECLIPSE
+      //  File folder = new File(path + "/lvls");   // NetBeans
+     //   
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {

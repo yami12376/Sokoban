@@ -58,7 +58,10 @@ public class Sokoban extends Applet implements KeyListener {
     {
     	Image image = null;
     	
-    	 File   imageSource = new File(path + "/graphics/gameElements/" +  name + ".png");
+            //     File   imageSource = new File(path + "/graphics/gameElements/" +  name + ".png"); // NetBeans
+
+            	// File   imageSource = new File(path +  name + ".png"); 
+    	 File   imageSource = new File(path +  name + ".png");  // Eclipse
 		 try {
 			   image = ImageIO.read(imageSource);			
 		} catch (IOException e) {
@@ -184,27 +187,36 @@ public class Sokoban extends Applet implements KeyListener {
  * W zależności od tego, który klawisz został naciśnięty na klawiaturze(która strzałka)
  * wywoła się task.move('x');   gdzie x -  to analogia do strzałek na klawiszach "wsad"
  */     
-	public void keyPressed(KeyEvent arg0) 
+	public void keyPressed(KeyEvent e) 
 	{
+		int keyCode = e.getKeyCode();
             if (State == State.GAME || State == State.NEXT) {
-                            switch(arg0.getKeyCode())
-		{
-		//arg0.getKeyCode()  37 <-       38 gora  -> 39  , dol 40 
-			case 37: // w lewo strzalka
-				task.move('l');
-				break;
-			case 38: // do gory strzalka
-				task.move('g');
-				break;
-			case 39: // w prawo strzalka
-				task.move('p');
-				break;
-			case 40: // do dolu strzalka
-				task.move('d');
-				break;
-		}
+            	 switch( keyCode ) { 
+                 case KeyEvent.VK_UP:
+                     // handle up 
+                	 task.move('g');
+                     break;
+                 case KeyEvent.VK_DOWN:
+                     // handle down 
+                	 task.move('d');
+                     break;
+                 case KeyEvent.VK_LEFT:
+                     // handle left
+                		task.move('l');
+                     break;
+                 case KeyEvent.VK_RIGHT :
+                	 task.move('p');
+                     // handle right
+                     break;
+              }
             }
 	}
+            	
+                          
+		
+	
+            
+	
 
 	public void keyReleased(KeyEvent arg0) {}
 

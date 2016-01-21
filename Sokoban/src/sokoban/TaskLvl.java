@@ -53,8 +53,8 @@ public class TaskLvl extends TimerTask
 		{
 			brd = lvls.lista.get(thisLvl);  //board.clone(lvl2); albo forem
 		     
-			 poz_HeroY = brd.x;
-			 poz_HeroX = brd.y;
+			 poz_HeroY = brd.HeroY; // pozycja hero, a nie rozmiar..
+			 poz_HeroX = brd.HeroX;
                          
 			 if(Sokoban.State != Sokoban.State.MENU && Sokoban.State != Sokoban.State.End)
 			Sokoban.State = Sokoban.State.GAME;
