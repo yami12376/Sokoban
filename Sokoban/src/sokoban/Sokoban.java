@@ -144,11 +144,11 @@ public class Sokoban extends Applet implements KeyListener {
 	}
 	public void drawLevel(Graphics g)
 	{
-		for (int i=0; i<task.board.length;i++)
+		for (int i=0; i<task.brd.board.length;i++)
 		{
-			for (int j=0; j<task.board[0].length;j++)
+			for (int j=0; j<task.brd.board[0].length;j++)
 			{
-				switch(task.board[i][j])
+				switch(task.brd.board[i][j])
 				{
 					case 0: // pod�oga z obrazka -> floor
 						g.drawImage(floor, 64*j, 64*i, applet); //w tym aplecie this
@@ -162,7 +162,7 @@ public class Sokoban extends Applet implements KeyListener {
 					g.drawImage(exit, 64*j, 64*i, this); // rysuje wyjscia
 				}
 				
-				switch(task.board[i][j]) // inaczej po najechaniu skrzynka na X
+				switch(task.brd.board[i][j]) // inaczej po najechaniu skrzynka na X
 				// znika�a skyrznka
 				{
 				case 3: // skrzynka z obrazka -> box

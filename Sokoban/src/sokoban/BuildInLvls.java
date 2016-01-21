@@ -51,14 +51,15 @@ public class BuildInLvls {
     ArrayList<Board> lista = new ArrayList<Board>();
 
     BuildInLvls() {
-        lista.add(first);
-        lista.add(second);
-
-        ArrayList<Board> lista2 = loadLvls();
+          ArrayList<Board> lista2 = loadLvls();
         
         for (Board item : lista2) {
              lista.add(item);
         }
+        lista.add(first);
+        lista.add(second);
+
+      
     }
 
     private ArrayList<Board> loadLvls() {
@@ -72,8 +73,8 @@ public class BuildInLvls {
         }
 
                  // (path + "/graphics/gameElements/" +  name + ".png");
-   //     File folder = new File(path + "/lvls");
-        File folder = new File("C:/Users/Ja/Documents/Sokoban/Sokoban/lvls");
+        File folder = new File(path + "/lvls");
+     //   File folder = new File("C:/Users/Ja/Documents/Sokoban/Sokoban/lvls");  ECLIPSE
         File[] listOfFiles = folder.listFiles();
 
         if (listOfFiles != null) {
