@@ -2,21 +2,15 @@ package sokoban;
 
 import java.applet.Applet;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Timer;
-
 import javax.imageio.ImageIO;
-
 import com.sun.jmx.snmp.tasks.Task;
-import java.awt.Label;
-import javax.swing.JPanel;
 
 public class Sokoban extends Applet implements KeyListener {
         private static Sokoban instance = null;
@@ -61,7 +55,7 @@ public class Sokoban extends Applet implements KeyListener {
     {
     	Image image = null;
     	
-    	 File   imageSource = new File(path + "/" +  name + ".png");
+    	 File   imageSource = new File(path + "/graphics/gameElements/" +  name + ".png");
 		 try {
 			   image = ImageIO.read(imageSource);			
 		} catch (IOException e) {

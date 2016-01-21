@@ -26,7 +26,7 @@ public class TaskLvl extends TimerTask
 		}
 		Sokoban.applet.repaint();	
 	}
-	public boolean endGame() // sprawdza przy ka¿dym kroku czy zakoñczyæ grê, czy klocki le¿¹ gdzie powinny
+	public boolean endGame() // sprawdza przy kazdym kroku czy zakonczyl gre, czy klocki leza gdzie powinny
 	{
 		for (int i=0; i<board.length; i++)
 		{

@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.*;
@@ -32,6 +30,7 @@ public class Creator {
     JLabel xLabel, yLabel, floorLabel, wallLabel, targetSpotLabel, boxLabel, playerLabel, helpLabel;
     JTextField textFieldXSize, textFieldYSize;  
     JTextField[][] mapElements;
+    int[][] loadElements;
     JLabel[][] previewElements;
     ImageIcon wallImageIcon, floorImageIcon, targetSpotImageIcon, playerImageIcon, boxImageIcon, wallImage, floorImage, targetSpotImage, boxImage, playerImage;
     AbstractDocument xSizeDocument, ySizeDocument, boardDocument;
@@ -154,7 +153,7 @@ public class Creator {
                         fb.getDocument().getLength());
                 text += str;
                 if ((fb.getDocument().getLength() + str.length() - length) <= maxBoardInputLength
-                        && text.matches("^[1-4]$")) {
+                        && text.matches("^[0-4]$")) {
                     super.replace(fb, offs, length, str, a);
                 } else {
                     Toolkit.getDefaultToolkit().beep();
@@ -245,22 +244,6 @@ public class Creator {
         });
     }
     
-    
-    private ImageIcon loadFile(String path, String name)
-    {
-    	Image image = null;
-    	
-    	 File   imageSource = new File(path + "/" +  name + ".png");
-		 try {
-			   image = ImageIO.read(imageSource);			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		 ImageIcon imageIcon = new ImageIcon(image);
-		 
-		 return imageIcon;
-    }
-    
     private void getGraphics()
     {
    
@@ -272,73 +255,18 @@ public class Creator {
         } catch (IOException ex) {
             Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        /*File sourceimage = new File(path + "/graphics/gameElements/wall.png");
-        try {
-            Image image = ImageIO.read(sourceimage);
-            wallImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        File sourceimage2 = new File(path + "/graphics/gameElements/floor.png");
-        try {
-            Image image = ImageIO.read(sourceimage2);
-            floorImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        File sourceimage3 = new File(path + "/graphics/gameElements/targetSpot.png");
-        try {
-            Image image = ImageIO.read(sourceimage3);
-            targetSpotImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        File sourceimage4 = new File(path + "/graphics/gameElements/box.png");
-        try {
-            Image image = ImageIO.read(sourceimage4);
-            boxImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        File sourceimage5 = new File(path + "/graphics/gameElements/player.png");
-        try {
-            Image image = ImageIO.read(sourceimage5);
-            playerImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
 		
-        wallImage = loadFile(path, "wall");
-		floorImage = loadFile(path, "floor");
-		targetSpotImage = loadFile(path, "targetSpot");
-		boxImage = loadFile(path, "box"); 
-		playerImage = loadFile(path, "player");
-        
-		wallImageIcon = loadFile(path, "wall");
-		floorImageIcon = loadFile(path, "floor");
-		targetSpotImageIcon = loadFile(path, "targetSpot");
-		boxImageIcon = loadFile(path, "box"); 
-		playerImageIcon = loadFile(path, "player");
-	        
-        
-      
-//		
-//		wallImage = new ImageIcon(path + "\\graphics\\gameElements\\wall.png");
-//        floorImage = new ImageIcon(path + "\\graphics\\gameElements\\floor.png");
-//        targetSpotImage = new ImageIcon(path + "\\graphics\\gameElements\\targetSpot.png");
-//        boxImage = new ImageIcon(path + "\\graphics\\gameElements\\box.png");       
-//        playerImage = new ImageIcon(path + "\\graphics\\gameElements\\player.png");
-//        
-//        wallImageIcon = new ImageIcon(path + "\\graphics\\icons\\wall.png");
-//        floorImageIcon = new ImageIcon(path + "\\graphics\\icons\\floor.png");
-//        targetSpotImageIcon = new ImageIcon(path + "\\graphics\\icons\\targetSpot.png");
-//        boxImageIcon = new ImageIcon(path + "\\graphics\\icons\\box.png");       
-//        playerImageIcon = new ImageIcon(path + "\\graphics\\icons\\player.png");		
+        wallImage = new ImageIcon(path + "\\graphics\\gameElements\\wall.png");
+        floorImage = new ImageIcon(path + "\\graphics\\gameElements\\floor.png");
+        targetSpotImage = new ImageIcon(path + "\\graphics\\gameElements\\targetSpot.png");
+        boxImage = new ImageIcon(path + "\\graphics\\gameElements\\box.png");       
+        playerImage = new ImageIcon(path + "\\graphics\\gameElements\\player.png");
+
+        wallImageIcon = new ImageIcon(path + "\\graphics\\icons\\wall.png");
+        floorImageIcon = new ImageIcon(path + "\\graphics\\icons\\floor.png");
+        targetSpotImageIcon = new ImageIcon(path + "\\graphics\\icons\\targetSpot.png");
+        boxImageIcon = new ImageIcon(path + "\\graphics\\icons\\box.png");       
+        playerImageIcon = new ImageIcon(path + "\\graphics\\icons\\player.png");		
     }
     
     private void createNewBoard()
@@ -432,7 +360,7 @@ public class Creator {
         }
         isBoardCreated = false;
     }
-    
+
     private void loadBoard()
     {
         JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home") + "\\Desktop");
@@ -444,7 +372,6 @@ public class Creator {
             Scanner skaner;
             try {
                 skaner = new Scanner(file);
-                int[][] elements;
                 List<Integer> temp = new ArrayList<>();
                 int x = 0;
                 int y = 0;
@@ -454,13 +381,13 @@ public class Creator {
                 }
                 x = temp.get(0);
                 y = temp.get(1);
-                elements = new int[x][y];
+                loadElements = new int[x][y];
                 for (int i = 0; i < x; i++) {
                     for (int j = 0; j < y; j++) {
-                        elements[i][j] = temp.get(2+i*x+j);
+                        loadElements[i][j] = temp.get(2+i*x+j);
                     }
                 }
-                createNewBoard(x, y, elements);
+                createNewBoard(x, y, loadElements);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Creator.class.getName()).log(Level.SEVERE, null, ex);
             }        
@@ -501,6 +428,9 @@ public class Creator {
         
         if (!validateBoard(xElements, yElements)) 
             return;
+        
+        previewPanel.removeAll();
+        previewPanel.repaint();
         
         //max wymiary plansz
         previewElements = new JLabel[15][15];
