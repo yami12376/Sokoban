@@ -18,7 +18,7 @@ public class MouseInput implements MouseListener {
         int mouseY = e.getY();
         if(mouseX >= 350 && mouseX <= 590)
         {
-            if (mouseY >= 200 && mouseY <= 250) {
+            if (mouseY >= 250 && mouseY <= 300) {
                 //Pressed play
                 Sokoban.State = Sokoban.STATE.GAME;
             }
@@ -26,7 +26,7 @@ public class MouseInput implements MouseListener {
 
         if(mouseX >= 350 && mouseX <= 590)
         {
-            if (mouseY >= 300 && mouseY <= 350) {
+            if (mouseY >= 350 && mouseY <= 400) {
                 //Pressed create levels
                 Sokoban.Instance().creator.ShowCreator();
             }
@@ -34,7 +34,7 @@ public class MouseInput implements MouseListener {
 
         if(mouseX >= 350 && mouseX <= 590)
         {
-            if (mouseY >= 400 && mouseY <= 450) {
+            if (mouseY >= 450 && mouseY <= 500) {
                 //Pressed quit
                 System.exit(1);
             }

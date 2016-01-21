@@ -16,9 +16,7 @@ import java.awt.Rectangle;
  * @author Ja
  */
 public class EndScreen {
-     // public Rectangle endRect = new Rectangle(150, 100, 240, 50);
-   // public Rectangle creatorButton = new Rectangle(350, 300, 240, 50);
-    public Rectangle quitButton = new Rectangle(350, 400, 240, 50);
+    public Rectangle quitButton = new Rectangle(350, 450, 240, 50);
     public void render(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         
@@ -29,18 +27,8 @@ public class EndScreen {
         Font buttonsFont = new Font("Arial", Font.BOLD, 30);
         g.setFont(buttonsFont);
         g.drawString("YOU FINISHED GAME, CONGRATULATIONS", quitButton.x-140, quitButton.y-90);
-       // g.drawString("Level Creator", creatorButton.x+29, creatorButton.y+35);
         g.drawString("Quit", quitButton.x+90, quitButton.y+35);
         
         g2d.draw(quitButton);
-      //  g2d.draw(creatorButton);
-      //  g2d.draw(quitButton);
-    }
-            /**
-         * @param args the command line argumentsz
-         */
-        public static void main(String[] args) {
-
-        }
-    
+    } 
 }

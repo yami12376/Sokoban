@@ -28,7 +28,6 @@ public class Sokoban extends Applet implements KeyListener {
 	Timer timer = new Timer();
 	Image bufor;
 	Graphics bg; //rysuje obrazek
-	static int stan = 1; //czy zakonczona gra-> stan =  1, gra sie toczy i rysuj plansze.
 
         
         EndScreen endScreen;
@@ -48,7 +47,7 @@ public class Sokoban extends Applet implements KeyListener {
             CREATOR,
             GAME,
             NEXT,
-            End,
+            END,
         }
         
         public static STATE State = STATE.MENU;
@@ -58,150 +57,143 @@ public class Sokoban extends Applet implements KeyListener {
     {
     	Image image = null;
     	
-    	 File   imageSource = new File(path + "/graphics/gameElements/" +  name + ".png");
-		 try {
-			   image = ImageIO.read(imageSource);			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
-		 return image;
+        File   imageSource = new File(path + "/graphics/gameElements/" +  name + ".png");
+        try {
+            image = ImageIO.read(imageSource);			
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return image;
     }
         
 	public void init()
 	{
             instance = this;
-		 File directory = new File (".");
-		 String path = "";
-            
-		 try {
+            File directory = new File (".");
+            String path = "";
+
+            try {
                 path = directory.getCanonicalPath();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-            
-		 Class<Sokoban> klasa = Sokoban.class; 
-                 menu = new Menu();
-                 endScreen = new EndScreen();
-			 
-		wall = loadFile(path, "wall");
-		floor = loadFile(path, "floor");
-		exit = loadFile(path, "targetSpot");
-		box = loadFile(path, "box"); 
-		hero = loadFile(path, "player");
-			 
-		applet = this;
-		applet.addKeyListener(this);
-                applet.addMouseListener(new MouseInput());
-	applet.setSize(rozmiar1, rozmiar2);	
-	applet.setBackground((Color.BLUE));
-	bufor = createImage(rozmiar1, rozmiar2);
-	bg = bufor.getGraphics();
-	timer.scheduleAtFixedRate(task, 5, 5);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+             Class<Sokoban> klasa = Sokoban.class; 
+             menu = new Menu();
+             endScreen = new EndScreen();
+
+            wall = loadFile(path, "wall");
+            floor = loadFile(path, "floor");
+            exit = loadFile(path, "targetSpot");
+            box = loadFile(path, "box"); 
+            hero = loadFile(path, "player");
+
+            applet = this;
+            applet.addKeyListener(this);
+            applet.addMouseListener(new MouseInput());
+            applet.setSize(rozmiar1, rozmiar2);	
+            applet.setBackground((Color.BLUE));
+            bufor = createImage(rozmiar1, rozmiar2);
+            bg = bufor.getGraphics();
+            timer.scheduleAtFixedRate(task, 5, 5);
             task.makeBoard(0);
             creator = new Creator();
 	}
 	public void update(Graphics g) //update-repaint trafia tu
 	{
-                bg.clearRect(0, 0, rozmiar1, rozmiar2); //czyscimy bufor
-		paint(bg); //do obrazka w pamieci->bufora rysujemy
-		g.drawImage(bufor, 0,0, applet);
-		 //likwidujemy efekt migotania, rysujemy bufor z pami�ci
+            bg.clearRect(0, 0, rozmiar1, rozmiar2); //czyscimy bufor
+            paint(bg); //do obrazka w pamieci->bufora rysujemy
+            g.drawImage(bufor, 0,0, applet);
+             //likwidujemy efekt migotania, rysujemy bufor z pami�ci
 	}
 	
 	public void paint(Graphics g)//jak nie bylo update-repaint trafiamy tu.
 	{
-            if (State == STATE.GAME) {
-                switch(stan) {
-			case 1:
-				drawLevel(g);
-				break;
-		}
-            }
-            if(State == State.NEXT) { // odpala X razy metode nizej.
-            	NextLvl(g);
-            }
-            if (State == State.MENU) {
-                menu.render(g);
-            }
-             if (State == State.End) {
-                endScreen.render(g);
+            switch(State) {
+                case MENU:
+                    menu.render(g);
+                    break;
+                case GAME:
+                    drawLevel(g);
+                    break;
+                case NEXT:
+                    NextLvl(g);
+                    break;
+                case END:
+                    endScreen.render(g);
+                    break;
             }
 	}
-	public void endScreen(Graphics g) //wyswietla komunikat/grafike jak przeszlismy gre
-	{
-		 // task.makeBoard(true);
-		//  drawLevel(g);
-		
-	}
+
 	public void NextLvl(Graphics g) 
 	{
-		whichLevel++;
-		//applet.repaint();
-		
-		 task.makeBoard(whichLevel);
-		  drawLevel(g);
+            whichLevel++;
+            //applet.repaint();
+
+            task.makeBoard(whichLevel);
+            drawLevel(g);
 	}
 	public void drawLevel(Graphics g)
 	{
-		for (int i=0; i<task.board.length;i++)
-		{
-			for (int j=0; j<task.board[0].length;j++)
-			{
-				switch(task.board[i][j])
-				{
-					case 0: // pod�oga z obrazka -> floor
-						g.drawImage(floor, 64*j, 64*i, applet); //w tym aplecie this
-						break;
-					case 1: // sciana z obrazka -> wall
-						g.drawImage(wall, 64*j, 64*i, applet);
-						break;								
-				}
-				if(task.exits[i][j]==2)
-				{
-					g.drawImage(exit, 64*j, 64*i, this); // rysuje wyjscia
-				}
-				
-				switch(task.board[i][j]) // inaczej po najechaniu skrzynka na X
-				// znika�a skyrznka
-				{
-				case 3: // skrzynka z obrazka -> box
-					g.drawImage(box, 64*j, 64*i, applet);
-					break;
-					// zeby postac byla z przodu
-				case 4: // rysuje posta�
-					g.drawImage(floor, 64*j, 64*i, applet);
-					g.drawImage(hero, 64*j, 64*i, applet);
-					break;
-				}
-			}			
-		}
-                g.drawString("Level" + (whichLevel+1), 10, 30);
+            for (int i=0; i<task.board.length;i++)
+            {
+                for (int j=0; j<task.board[0].length;j++)
+                {
+                    switch(task.board[i][j])
+                    {
+                        case 0: // pod�oga z obrazka -> floor
+                            g.drawImage(floor, 64*j, 64*i, applet); //w tym aplecie this
+                            break;
+                        case 1: // sciana z obrazka -> wall
+                            g.drawImage(wall, 64*j, 64*i, applet);
+                            break;								
+                    }
+                    if(task.exits[i][j]==2)
+                    {
+                        g.drawImage(exit, 64*j, 64*i, this); // rysuje wyjscia
+                    }
+
+                    switch(task.board[i][j]) // inaczej po najechaniu skrzynka na X
+                    // znika�a skyrznka
+                    {
+                        case 3: // skrzynka z obrazka -> box
+                            g.drawImage(box, 64*j, 64*i, applet);
+                            break;
+                                // zeby postac byla z przodu
+                        case 4: // rysuje posta�
+                            g.drawImage(floor, 64*j, 64*i, applet);
+                            g.drawImage(hero, 64*j, 64*i, applet);
+                            break;
+                    }
+                }			
+            }
+            g.drawString("Level" + (whichLevel+1), 10, 30);
 	}
 
 
-/**
- * W zależności od tego, który klawisz został naciśnięty na klawiaturze(która strzałka)
- * wywoła się task.move('x');   gdzie x -  to analogia do strzałek na klawiszach "wsad"
- */     
+        /**
+         * W zależności od tego, który klawisz został naciśnięty na klawiaturze(która strzałka)
+         * wywoła się task.move('x');   gdzie x -  to analogia do strzałek na klawiszach "wsad"
+         */     
 	public void keyPressed(KeyEvent arg0) 
 	{
             if (State == State.GAME || State == State.NEXT) {
-                            switch(arg0.getKeyCode())
+                switch(arg0.getKeyCode())
 		{
 		//arg0.getKeyCode()  37 <-       38 gora  -> 39  , dol 40 
-			case 37: // w lewo strzalka
-				task.move('l');
-				break;
-			case 38: // do gory strzalka
-				task.move('g');
-				break;
-			case 39: // w prawo strzalka
-				task.move('p');
-				break;
-			case 40: // do dolu strzalka
-				task.move('d');
-				break;
+                    case 37: // w lewo strzalka
+                        task.move('l');
+                        break;
+                    case 38: // do gory strzalka
+                        task.move('g');
+                        break;
+                    case 39: // w prawo strzalka
+                        task.move('p');
+                        break;
+                    case 40: // do dolu strzalka
+                        task.move('d');
+                        break;
 		}
             }
 	}
@@ -210,4 +202,4 @@ public class Sokoban extends Applet implements KeyListener {
 
 	public void keyTyped(KeyEvent arg0) {}
 	
-	}
+}
