@@ -21,8 +21,6 @@ public class TaskLvl extends TimerTask
 		if(endGame()==true && Sokoban.State != Sokoban.State.MENU) //sprawdza czy konie gry nastapil
 		{
 			Sokoban.State = Sokoban.STATE.NEXT;
-			//Sokoban.re
-			//Sokoban.stan =  2; // here next LVL todo
 		}
 		Sokoban.applet.repaint();	
 	}

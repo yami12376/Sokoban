@@ -169,9 +169,14 @@ public class Sokoban extends Applet implements KeyListener {
 				}
 			}			
 		}
-                g.drawString("Level 1", 10, 30);
+                g.drawString("Level" + (whichLevel+1), 10, 30);
 	}
 
+
+/**
+ * W zależności od tego, który klawisz został naciśnięty na klawiaturze(która strzałka)
+ * wywoła się task.move('x');   gdzie x -  to analogia do strzałek na klawiszach "wsad"
+ */     
 	public void keyPressed(KeyEvent arg0) 
 	{
             if (State == State.GAME || State == State.NEXT) {
@@ -194,11 +199,8 @@ public class Sokoban extends Applet implements KeyListener {
             }
 	}
 
-	public void keyReleased(KeyEvent arg0)
-	{
-	}
-	public void keyTyped(KeyEvent arg0) 
-	{
-	}
-		
+	public void keyReleased(KeyEvent arg0) {}
+
+	public void keyTyped(KeyEvent arg0) {}
+	
 	}
